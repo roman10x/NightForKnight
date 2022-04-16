@@ -215,10 +215,6 @@ PrefabInstance:
       value: Joystick
       objectReference: {fileID: 0}
     - target: {fileID: 114282555968907678, guid: 4c4f361b44a284fcbbfb9261c56d82a2, type: 3}
-      propertyPath: isDynamicJoystick
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114282555968907678, guid: 4c4f361b44a284fcbbfb9261c56d82a2, type: 3}
       propertyPath: dynamicJoystickMovementArea
       value: 
       objectReference: {fileID: 1226050811981232929}

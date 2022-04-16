@@ -1,39 +1,33 @@
-﻿using System;
-using CodeBase.CameraLogic;
-using CodeBase.Infrastructure;
+﻿using CodeBase.Infrastructure;
 using CodeBase.Services.Input;
 using UnityEngine;
 
 namespace CodeBase.Hero
 {
+    [RequireComponent(typeof(CharacterController))]
     public class HeroMove : MonoBehaviour
     {
         [SerializeField]
-        private CharacterController m_characterController;
-        [SerializeField]
         private float m_movementSpeed = 4.0f;
-        
-        private IInputService m_inputService;
-        private Camera m_camera;
+        private CharacterController m_characterController;
+        private HeroAnimator m_heroAnimator;
 
+        private IInputService m_inputService;
+       
         private void Awake()
         {
             m_inputService = Game.InputService;
+            m_characterController = GetComponent<CharacterController>();
+            m_heroAnimator = GetComponent<HeroAnimator>();
         }
-
-        private void Start()
-        {
-            m_camera = Camera.main;
-            CameraFollow();
-        }
-
+        
         private void Update()
         {
             Vector3 movementVector = Vector3.zero;
 
             if (m_inputService.Axis.sqrMagnitude > Constants.Epsilon)
             {
-                movementVector = m_camera.transform.TransformDirection(m_inputService.Axis);
+                movementVector = Camera.main.transform.TransformDirection(m_inputService.Axis);
                 movementVector.y = 0;
                 movementVector.Normalize();
 
@@ -44,7 +38,5 @@ namespace CodeBase.Hero
             
             m_characterController.Move(movementVector * (m_movementSpeed * Time.deltaTime));
         }
-
-        private void CameraFollow() => m_camera.GetComponent<CameraFollow>().Follow(gameObject);
     }
 }
