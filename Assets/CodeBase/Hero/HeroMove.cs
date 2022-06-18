@@ -1,4 +1,5 @@
 ﻿using CodeBase.Infrastructure;
+using CodeBase.Infrastructure.Services;
 using CodeBase.Services.Input;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace CodeBase.Hero
        
         private void Awake()
         {
-            m_inputService = Game.InputService;
+            m_inputService = AllServices.Container.Single<IInputService>();
             m_characterController = GetComponent<CharacterController>();
             m_heroAnimator = GetComponent<HeroAnimator>();
         }

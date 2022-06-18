@@ -8,6 +8,8 @@ namespace CodeBase.Logic
     [SerializeField]
     private  CanvasGroup m_curtain;
 
+    readonly WaitForSeconds m_waitForSeconds = new WaitForSeconds(0.03f);
+
     private void Awake()
     {
       DontDestroyOnLoad(this);
@@ -26,7 +28,7 @@ namespace CodeBase.Logic
       while (m_curtain.alpha > 0)
       {
         m_curtain.alpha -= 0.03f;
-        yield return new WaitForSeconds(0.03f);
+        yield return m_waitForSeconds;
       }
       
       gameObject.SetActive(false);

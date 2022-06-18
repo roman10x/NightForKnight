@@ -1,24 +1,24 @@
 using CodeBase.CameraLogic;
+using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
 using UnityEngine;
 
-
-namespace CodeBase.Infrastructure
+namespace CodeBase.Infrastructure.States
 {
     public class LoadLevelState : IPayloadedState<string>
     {
         private const string InitialPointTagName = "InitialPoint";
-        private const string PathToHeroPrefab = "Hero/hero";
-        private const string PathToHudPrefab = "Hud/Hud";
-        
+
         private readonly GameStateMachine m_stateMachine;
         private readonly SceneLoader m_sceneLoader;
         private readonly LoadingCurtain m_loadingCurtain;
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
+        private readonly IGameFactory m_gameFactory;
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory)
         {
             m_stateMachine = stateMachine;
             m_sceneLoader = sceneLoader;
             m_loadingCurtain = loadingCurtain;
+            m_gameFactory = gameFactory;
         }
         public void Enter(string sceneName)
         {
@@ -33,8 +33,9 @@ namespace CodeBase.Infrastructure
         private void OnLoaded()
         {
             var initialPoint = GameObject.FindWithTag(InitialPointTagName);
-            GameObject hero = Instantiate(PathToHeroPrefab, spawnPoint: initialPoint.transform.position);
-            Instantiate(PathToHudPrefab);
+            var hero = m_gameFactory.CreateHero(at: initialPoint);
+
+            m_gameFactory.CreateHud();
             CameraFollow(hero);
             
             m_stateMachine.Enter<GameLoopState>();
@@ -43,18 +44,6 @@ namespace CodeBase.Infrastructure
         private void CameraFollow(GameObject gameObject)
         {
            Camera.main.GetComponent<CameraFollow>().Follow(gameObject);
-        }
-        
-        private static GameObject Instantiate(string path)
-        {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab);
-        }
-        
-        private static GameObject Instantiate(string path, Vector3 spawnPoint)
-        {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab, spawnPoint, Quaternion.identity);
         }
     }
 }
