@@ -33,7 +33,7 @@ namespace CodeBase.Infrastructure.States
         private void OnLoaded()
         {
             var initialPoint = GameObject.FindWithTag(InitialPointTagName);
-            var hero = m_gameFactory.CreateHero(at: initialPoint);
+            var hero = m_gameFactory.CreateHero(at: initialPoint); // TODO need to move to separated service, that wil spawn hero and other characters
 
             m_gameFactory.CreateHud();
             CameraFollow(hero);
