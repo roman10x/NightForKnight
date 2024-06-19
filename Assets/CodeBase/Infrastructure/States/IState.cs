@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace CodeBase.Infrastructure.States
 {
     public interface IState : IExitableState
@@ -7,7 +10,6 @@ namespace CodeBase.Infrastructure.States
             
         }
     }
-
 
     public interface IPayloadedState<TPayload> : IExitableState
     {
@@ -20,5 +22,10 @@ namespace CodeBase.Infrastructure.States
         {
             
         }
+    }
+    
+    public interface IStrictState
+    {
+        List<Type> AvailableStates();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Logic;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -24,19 +25,25 @@ namespace CodeBase.Infrastructure.States
         public void Enter<TState>() where TState : class, IState
         {
             var state = ChangeState<TState>();
-            state.Enter();
+            state?.Enter();
         }
 
         public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
         {
-            TState state = ChangeState<TState>();
-            state.Enter(payload);
+            var state = ChangeState<TState>();
+            state?.Enter(payload);
         }
         
         private TState ChangeState<TState>() where TState : class, IExitableState
         {
+            var strictState = m_activeState as IStrictState;
+            if(strictState != null && !strictState.AvailableStates().Contains(typeof(TState)))
+            {
+                Debug.LogError("Can't enter to another state, because type of available states is strict");
+                return null;
+            }
             m_activeState?.Exit();
-            TState state = GetState<TState>();
+            var state = GetState<TState>();
             m_activeState = state;
             return state;
         }
