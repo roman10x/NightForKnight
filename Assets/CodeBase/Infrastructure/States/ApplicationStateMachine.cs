@@ -6,12 +6,12 @@ using CodeBase.Logic;
 
 namespace CodeBase.Infrastructure.States
 {
-    public class GameStateMachine
+    public class ApplicationStateMachine
     {
         private readonly Dictionary<Type, IExitableState> m_states;
         private IExitableState m_activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, AllServices services)
+        public ApplicationStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, AllServices services)
         {
             m_states = new Dictionary<Type, IExitableState>
             {

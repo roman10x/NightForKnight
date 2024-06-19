@@ -9,10 +9,10 @@ namespace CodeBase.Infrastructure.States
     public class BootStrapState : IState
     {
         private const string InitialSceneName = "Initial";
-        private readonly GameStateMachine m_stateMachine;
+        private readonly ApplicationStateMachine m_stateMachine;
         private readonly SceneLoader m_sceneLoader;
         private readonly AllServices m_services;
-        public BootStrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services)
+        public BootStrapState(ApplicationStateMachine stateMachine, SceneLoader sceneLoader, AllServices services)
         {
             m_stateMachine = stateMachine;
             m_sceneLoader = sceneLoader;

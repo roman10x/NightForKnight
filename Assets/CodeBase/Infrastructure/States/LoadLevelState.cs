@@ -9,11 +9,11 @@ namespace CodeBase.Infrastructure.States
     {
         private const string InitialPointTagName = "InitialPoint";
 
-        private readonly GameStateMachine m_stateMachine;
+        private readonly ApplicationStateMachine m_stateMachine;
         private readonly SceneLoader m_sceneLoader;
         private readonly LoadingCurtain m_loadingCurtain;
         private readonly IGameFactory m_gameFactory;
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory)
+        public LoadLevelState(ApplicationStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory)
         {
             m_stateMachine = stateMachine;
             m_sceneLoader = sceneLoader;
