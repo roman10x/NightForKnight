@@ -2,7 +2,10 @@ namespace CodeBase.Infrastructure.States
 {
     public interface IState : IExitableState
     {
-        void Enter();
+        void Enter()
+        {
+            
+        }
     }
 
 
@@ -13,6 +16,9 @@ namespace CodeBase.Infrastructure.States
     
     public interface IExitableState
     {
-        void Exit();
+        void Exit()
+        {
+            
+        }
     }
 }

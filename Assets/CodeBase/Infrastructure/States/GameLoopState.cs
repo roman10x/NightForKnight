@@ -6,13 +6,5 @@ namespace CodeBase.Infrastructure.States
         {
             
         }
-        public void Exit()
-        {
-            
-        }
-        public void Enter()
-        {
-            
-        }
     }
 }
